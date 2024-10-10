@@ -18,15 +18,15 @@ const BottomTabNavigation = () => {
 
     return (
         <View style={styles.container}>
-            <TouchableOpacity
-                onPress={() => navigation.navigate('Explore')}
-                style={[styles.tab, activeTab === 'Explore' && styles.activeTab]} // Appliquer le style actif si c'est le cas
-            >
-                <View style={[styles.iconContainer, activeTab === 'Explore' && styles.activeIconContainer]}>
-                    <Icon name="location-arrow" size={24} color={activeTab === 'Explore' ? '#fff' : '#fff'}/>
-                </View>
-                <Text style={[styles.label, activeTab === 'Explore' && styles.activeLabel]}>Explore</Text>
-            </TouchableOpacity>
+            {/*<TouchableOpacity*/}
+            {/*    onPress={() => navigation.navigate('Explore')}*/}
+            {/*    style={[styles.tab, activeTab === 'Explore' && styles.activeTab]} // Appliquer le style actif si c'est le cas*/}
+            {/*>*/}
+            {/*    <View style={[styles.iconContainer, activeTab === 'Explore' && styles.activeIconContainer]}>*/}
+            {/*        <Icon name="location-arrow" size={24} color={activeTab === 'Explore' ? '#fff' : '#fff'}/>*/}
+            {/*    </View>*/}
+            {/*    <Text style={[styles.label, activeTab === 'Explore' && styles.activeLabel]}>Explore</Text>*/}
+            {/*</TouchableOpacity>*/}
             <TouchableOpacity
                 onPress={() => navigation.navigate('Home')}
                 style={[styles.tab, activeTab === 'Home' && styles.activeTab]} // Appliquer le style actif si c'est le cas
