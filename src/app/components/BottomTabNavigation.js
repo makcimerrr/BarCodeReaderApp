@@ -19,25 +19,31 @@ const BottomTabNavigation = () => {
     return (
         <View style={styles.container}>
             <TouchableOpacity
+                onPress={() => navigation.navigate('Explore')}
+                style={[styles.tab, activeTab === 'Explore' && styles.activeTab]} // Appliquer le style actif si c'est le cas
+            >
+                <View style={[styles.iconContainer, activeTab === 'Explore' && styles.activeIconContainer]}>
+                    <Icon name="location-arrow" size={24} color={activeTab === 'Explore' ? '#fff' : '#fff'}/>
+                </View>
+                <Text style={[styles.label, activeTab === 'Explore' && styles.activeLabel]}>Explore</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
                 onPress={() => navigation.navigate('Home')}
                 style={[styles.tab, activeTab === 'Home' && styles.activeTab]} // Appliquer le style actif si c'est le cas
             >
-                <Icon name="home" size={24} color={activeTab === 'Home' ? '#000' : '#fff'}/>
+                <View style={[styles.iconContainer, activeTab === 'Home' && styles.activeIconContainer]}>
+                    <Icon name="home" size={24} color={activeTab === 'Home' ? '#fff' : '#fff'}/>
+                </View>
                 <Text style={[styles.label, activeTab === 'Home' && styles.activeLabel]}>Home</Text>
             </TouchableOpacity>
             <TouchableOpacity
                 onPress={() => navigation.navigate('Search')}
                 style={[styles.tab, activeTab === 'Search' && styles.activeTab]} // Appliquer le style actif si c'est le cas
             >
-                <Icon name="search" size={24} color={activeTab === 'Search' ? '#000' : '#fff'}/>
+                <View style={[styles.iconContainer, activeTab === 'Search' && styles.activeIconContainer]}>
+                    <Icon name="search" size={24} color={activeTab === 'Search' ? '#fff' : '#fff'}/>
+                </View>
                 <Text style={[styles.label, activeTab === 'Search' && styles.activeLabel]}>Search</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-                onPress={() => navigation.navigate('Passeport')}
-                style={[styles.tab, activeTab === 'Passeport' && styles.activeTab]} // Appliquer le style actif si c'est le cas
-            >
-                <Icon name="file-text" size={24} color={activeTab === 'Passeport' ? '#000' : '#fff'}/>
-                <Text style={[styles.label, activeTab === 'Passeport' && styles.activeLabel]}>Passeport</Text>
             </TouchableOpacity>
         </View>
     );
@@ -53,18 +59,31 @@ const styles = StyleSheet.create({
     tab: {
         alignItems: 'center',
     },
-    activeTab: {
-        backgroundColor: '#ffffff', // Couleur de l'onglet actif
-        borderRadius: 10,
-        padding: 5,
+    iconContainer: {
+        padding: 10,
+        borderRadius: 20,
+        backgroundColor: 'transparent',
+    },
+    activeIconContainer: {
+        position: "relative",
+        backgroundColor: '#4F88FF',
+        borderRadius: 16,
+        paddingRight: 20,
+        paddingLeft: 20,
+        width: "100%",
+        overflow: "hidden",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
     },
     label: {
-        color: '#fff', // Couleur du texte normal
+        color: '#fff',
         fontSize: 12,
         marginTop: 4,
     },
     activeLabel: {
-        color: '#000', // Couleur du texte pour l'onglet actif
+        color: '#fff',
     },
 });
 
