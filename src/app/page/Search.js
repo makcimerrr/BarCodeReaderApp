@@ -1,8 +1,18 @@
-// Search.js
 import React, {useEffect, useState, useCallback} from 'react';
-import {View, Text, ScrollView, TouchableOpacity, StyleSheet, ActivityIndicator, Dimensions} from 'react-native';
+import {
+    Image,
+    View,
+    Text,
+    ScrollView,
+    TouchableOpacity,
+    StyleSheet,
+    ActivityIndicator,
+    Dimensions,
+    TouchableOpacityBase
+} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import debounce from 'lodash.debounce';
+import Icon from 'react-native-vector-icons/AntDesign';
 
 import AvailablePcs from '../components/AvailablePcs';
 import Brands from '../components/Brands';
@@ -99,6 +109,12 @@ const Search = () => {
         navigation.navigate('AvailablePcsScreen'); // Remplacez 'AvailablePcsScreen' par le nom de votre écran
     };
 
+    const openPreview = (owner) => {
+        // Logique pour ouvrir un aperçu de la fenêtre
+        console.log("Aperçu du propriétaire:", owner);
+        // Vous pouvez naviguer vers un écran d'aperçu ou ouvrir un modal ici
+    };
+
     return (
         <View style={styles.container}>
             <View style={styles.backgroundShape}/>
@@ -119,9 +135,64 @@ const Search = () => {
                         <Text style={styles.availableTitle}>Résultats de recherche</Text>
                         <ScrollView style={styles.results}>
                             {results.map((result, index) => (
-                                <TouchableOpacity key={index} style={styles.resultItem}
-                                                  onPress={() => openModal(result)}>
-                                    <Text style={styles.resultText}>{result.Statut}</Text>
+                                <TouchableOpacity
+                                    key={index}
+                                    style={styles.resultItem}
+                                    onPress={() => openModal(result)} // Ouvre le modal pour afficher les détails du PC
+                                >
+                                    {result && result.Modèle && typeof result.Modèle === 'string' && result.Modèle.includes('ASUS') && (
+                                        <Image
+                                            source={{uri: result.imageUrl || 'https://images.unsplash.com/photo-1445620466293-d6316372ab59?q=80&w=2874&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'}}
+                                            style={styles.resultImage}
+                                        />
+                                    )}
+                                    {result && result.Modèle && typeof result.Modèle === 'string' && result.Modèle.includes('HP') && (
+                                        <Image
+                                            source={{uri: result.imageUrl || 'https://images.unsplash.com/photo-1525547719571-a2d4ac8945e2?q=80&w=2864&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3Dhttps://images.unsplash.com/photo-1525547719571-a2d4ac8945e2?q=80&w=2864&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'}}
+                                            style={styles.resultImage}
+                                        />
+                                    )}
+                                    {result && result.Modèle && typeof result.Modèle === 'string' && result.Modèle.includes('LDLC') && (
+                                        <Image
+                                            source={{uri: result.imageUrl || 'https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3Dx'}}
+                                            style={styles.resultImage}
+                                        />
+                                    )}
+                                    {result && result.Modèle && typeof result.Modèle === 'string' && result.Modèle.includes('MSI') && (
+                                        <Image
+                                            source={{uri: result.imageUrl || 'https://images.unsplash.com/photo-1496181133206-80ce9b88a853?q=80&w=2942&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'}}
+                                            style={styles.resultImage}
+                                        />
+                                    )}
+                                    {result && result.Modèle && typeof result.Modèle === 'string' && result.Modèle.includes('NB') && (
+                                        <Image
+                                            source={{uri: result.imageUrl || 'https://images.unsplash.com/photo-1591799264318-7e6ef8ddb7ea?q=80&w=2874&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'}}
+                                            style={styles.resultImage}
+                                        />
+                                    )}
+                                    <View style={styles.resultTextContainer}>
+                                        {result.Propriétaire ? (
+                                            <TouchableOpacity
+                                                onPress={() => openPreview(result.Propriétaire)} // Ouvre un aperçu pour le propriétaire
+                                            >
+                                                <Text style={[styles.resultOwner]}>
+                                                    {result.Propriétaire.split(' ')[0]}
+                                                </Text>
+                                            </TouchableOpacity>
+                                        ) : (
+                                            <Text style={[styles.resultOwner, {
+                                                textDecorationLine: 'none',
+                                                color: '#C2C2C2'
+                                            }]}>
+                                                Aucun propriétaire
+                                            </Text>
+                                        )}
+                                        <Text style={styles.resultModel}>{result.Modèle}</Text>
+                                    </View>
+                                    <TouchableOpacity style={styles.iconContainer}
+                                                      onPress={() => openModal(result)}>
+                                        <Icon name="select1" size={20} style={styles.resultIcon}/>
+                                    </TouchableOpacity>
                                 </TouchableOpacity>
                             ))}
                         </ScrollView>
@@ -160,6 +231,7 @@ const Search = () => {
 };
 
 const styles = StyleSheet.create({
+
     text: {
         fontWeight: "200",
         fontSize: 36,
@@ -198,11 +270,44 @@ const styles = StyleSheet.create({
         maxHeight: 150,
     },
     resultItem: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'flex-start',
         padding: 10,
         borderWidth: 1,
         borderColor: '#ccc',
         borderRadius: 8,
         marginBottom: 10,
+        backgroundColor: '#fff',
+    },
+    resultImage: {
+        width: 50,
+        height: 50,
+        borderRadius: 8,
+        marginRight: 10,
+    },
+    resultTextContainer: {
+        flex: 1,
+        alignItems: 'center',
+    },
+    resultOwner: {
+        fontSize: 16,
+        color: '#C2C2C2',
+    },
+    resultModel: {
+        fontSize: 14,
+        color: '#000',
+    },
+    resultIcon: {
+        backgroundColor: '#4F88FF',
+        color: '#fff',
+        borderRadius: 8,
+        padding: 4,
+    },
+    iconContainer: {
+        backgroundColor: '#4F88FF',
+        borderRadius: 8,
+        padding: 6,
     },
     resultText: {
         fontSize: 16,

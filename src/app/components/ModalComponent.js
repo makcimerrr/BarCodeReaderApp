@@ -1,5 +1,4 @@
-// ModalComponent.js
-import React from 'react';
+import React, {useState} from 'react';
 import {Modal, View, Text, TouchableOpacity, StyleSheet} from 'react-native';
 
 const ModalComponent = ({selectedPc, modalVisible, closeModal, navigation}) => {
@@ -13,6 +12,15 @@ const ModalComponent = ({selectedPc, modalVisible, closeModal, navigation}) => {
             <View style={styles.modalContainer}>
                 <View style={styles.modalContent}>
                     <Text style={styles.modalTitle}>{selectedPc.Statut}</Text>
+                    {selectedPc.Propriétaire ? (
+                        <Text style={styles.modalDetails}>Propriétaire: {selectedPc.Propriétaire.split(' ')[0]}</Text>
+                    ) : (
+                        <Text style={styles.modalDetails}>
+                            Aucun propriétaire
+                        </Text>
+                    )}
+                    <Text style={styles.modalDetails}>SN: {selectedPc.SN}</Text>
+                    <Text style={styles.modalDetails}>Modèle: {selectedPc.Modèle}</Text>
                     <TouchableOpacity
                         style={styles.button}
                         onPress={() => {
@@ -46,19 +54,23 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     modalTitle: {
-        fontSize: 18,
+        fontSize: 22,
         fontWeight: 'bold',
+        marginBottom: 15,
+    },
+    modalDetails: {
+        fontSize: 16,
         marginBottom: 10,
     },
     button: {
-        backgroundColor: 'blue',
-        padding: 10,
+        backgroundColor: '#2196F3',
+        padding: 12,
         borderRadius: 8,
-        marginTop: 10,
+        marginTop: 15,
     },
     closeButton: {
-        backgroundColor: 'gray',
-        padding: 10,
+        backgroundColor: '#f44336',
+        padding: 12,
         borderRadius: 8,
         marginTop: 10,
     },
