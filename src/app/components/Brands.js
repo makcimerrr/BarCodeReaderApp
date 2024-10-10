@@ -44,8 +44,8 @@ const Brands = ({brands, loading, error}) => {
 
 const styles = StyleSheet.create({
     brandImage: {
-        width: 100,
-        height: 100,
+        width: 120,
+        height: 120,
         resizeMode: 'contain',
     },
     brandBox: {
