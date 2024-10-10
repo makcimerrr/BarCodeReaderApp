@@ -13,6 +13,7 @@ import {
 import {useNavigation} from '@react-navigation/native';
 import debounce from 'lodash.debounce';
 import Icon from 'react-native-vector-icons/AntDesign';
+import {Linking} from 'react-native';
 
 import AvailablePcs from '../components/AvailablePcs';
 import Brands from '../components/Brands';
@@ -110,9 +111,13 @@ const Search = () => {
     };
 
     const openPreview = (owner) => {
-        // Logique pour ouvrir un aperçu de la fenêtre
-        console.log("Aperçu du propriétaire:", owner);
-        // Vous pouvez naviguer vers un écran d'aperçu ou ouvrir un modal ici
+        const ownerUrl = owner.split('(')[1]?.replace(')', '').trim(); // Extraire l'URL
+        if (ownerUrl) {
+            Linking.openURL(ownerUrl)
+                .catch(err => console.error("Erreur lors de l'ouverture de l'URL:", err));
+        } else {
+            console.log("Aucune URL trouvée pour le propriétaire");
+        }
     };
 
     return (
